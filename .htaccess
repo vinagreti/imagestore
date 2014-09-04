@@ -1,0 +1,5 @@
+Options +FollowSymlinks
+RewriteEngine on
+RewriteRule ^([^/]+)/([^/]+)/([^$2].*) image.php?format=$1&path=$2//$3 [NC]
+RewriteRule ^([^/]+)/([^/]+) image.php?format=$1&path=$2 [NC]
+RewriteRule ^([0-9a-zA-z]+)$ image.php?format=$1&path=none [NC]
