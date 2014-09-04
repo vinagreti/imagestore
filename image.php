@@ -5,7 +5,7 @@
     $format = $_GET['format']; // from .htaccess
 
     // debug .htaccess
-    // file_put_contents('log.txt', $path . " em " . $format);
+    file_put_contents('log.txt', $path . " em " . $format);
 
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $path); 
@@ -69,13 +69,13 @@
 
         if (isset($formatParts[1])) {
 
-            $new_img_x = is_numeric($formatParts[0]) ? $formatParts[0] : 5;
+            $new_img_x = is_numeric($formatParts[0]) ? $formatParts[0] : 50;
 
-            $new_img_y = is_numeric($formatParts[1]) ? $formatParts[1] : 5;
+            $new_img_y = is_numeric($formatParts[1]) ? $formatParts[1] : 50;
 
         } else {
 
-            $new_size = is_numeric($formatParts[0]) ? $formatParts[0] : 5;
+            $new_size = is_numeric($formatParts[0]) ? $formatParts[0] : 50;
 
             $ratio = $raw_img_y / $raw_img_x;
 
