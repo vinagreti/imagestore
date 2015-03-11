@@ -12,12 +12,15 @@
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // good edit, thanks!
     curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1); // also, this seems wise considering output is image.
     $data = curl_exec($ch);
+	
+	$image_type = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
+	
     curl_close($ch);
 
     if ($data) {
 
         $image = imagecreatefromstring($data);
-
+		
     } else { // se não encontrar a imagem cria uma
 
         $image = @imagecreatetruecolor(1,1)
@@ -26,8 +29,8 @@
         imagefill($image, 0, 0, $text_color);
 
     }
-
-    header('Content-Type: image/jpeg');
+	
+    header('Content-Type: '.$image_type);
 
     header('Cache-control: Public');
 
@@ -46,7 +49,11 @@
         $height = imagesy($originalImage);
 
         $imageResized = imagecreatetruecolor($toWidth, $toHeight);
-
+		
+		$white = imagecolorallocate($imageResized, 255, 255, 255);
+		
+		imagefill($imageResized,0,0,$white);
+		
         imagecopyresampled($imageResized, $originalImage, 0, 0, 0, 0, $toWidth, $toHeight, $width, $height);
 
         return $imageResized;
